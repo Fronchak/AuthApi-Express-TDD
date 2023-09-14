@@ -1,4 +1,5 @@
 type UserEntity = {
+  id: number | null,
   email: string,
   password: string
 };
