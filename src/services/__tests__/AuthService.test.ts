@@ -18,8 +18,11 @@ describe('AuthServices', () => {
 
   beforeEach(() => {
     userRepository = {
+      findById: jest.fn(),
+      findByEmail: jest.fn(),
       save: jest.fn(),
-      findByEmail: jest.fn()
+      update: jest.fn(),
+      delete: jest.fn()
     };
     passwordEncoder = {
       hash: jest.fn(),
