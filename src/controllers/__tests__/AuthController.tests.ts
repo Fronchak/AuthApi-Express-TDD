@@ -9,6 +9,9 @@ import User from "../../models/User";
 import { Op } from "sequelize";
 import createAppConfig from "../../Config";
 import TokenDTO from "../../dtos/auth/TokenDTO";
+import LoginDTO from "../../dtos/auth/LoginDTO";
+import ErrorResponse from "../../ErrorHandling/ErrorResponse";
+import BCryptPasswordEncoder from "../../components/BCryptPasswordEncoder";
 
 describe('AuthController', () => {
 
@@ -149,5 +152,85 @@ describe('AuthController', () => {
     const tokenDTO = response.body as TokenDTO;
     expect(tokenDTO).not.toBeNull();
     expect(tokenDTO.access_token.length).toBeGreaterThan(40);
+  });
+
+  test('login should return unprocessable when email is null', async () => {
+    const dto: LoginDTO = {
+      email: null, password: '123456'
+    };
+
+    const response = await request(app).post('/api/auth/login')
+        .send(dto);
+
+    expect(response.statusCode).toBe(422);
+    const body = response.body as ValidationErrorResponse;
+    expect(body).not.toBeNull();
+    expect(body.errors.length).toBeGreaterThan(0);
+    expect(body.errors.some((e) => e.field === 'email')).toBeTruthy();
+  });
+
+  test('login should return unprocessable when password is null', async () => {
+    const dto: LoginDTO = {
+      email: 'mail@gmail.com', password: null
+    };
+
+    const response = await request(app).post('/api/auth/login')
+        .send(dto);
+
+    expect(response.statusCode).toBe(422);
+    const body = response.body as ValidationErrorResponse;
+    expect(body).not.toBeNull();
+    expect(body.errors.length).toBeGreaterThan(0);
+    expect(body.errors.some((e) => e.field === 'password')).toBeTruthy();
+  });
+
+  test('login should return unhauthorized when email does not exists', async () => {
+    const dto: LoginDTO = {
+      email: 'mail@gmail.com', password: '123456'
+    };
+
+    const response = await request(app).post('/api/auth/login')
+        .send(dto);
+
+    expect(response.statusCode).toBe(401);
+    const body = response.body as ErrorResponse;
+    expect(body).not.toBeNull();
+    expect(body.message.length).toBeGreaterThan(0);
+  });
+
+  test('login should return unhauthorized when password is incorrect', async () => {
+    const passwordEncoder = new BCryptPasswordEncoder();
+    const email = 'mail@gmail.com';
+    const password = '123456';
+    const hashed = passwordEncoder.hash(password);
+    await User.create({ email, password: hashed });
+
+    const dto: LoginDTO = { email, password: '1234567' };
+
+    const response = await request(app).post('/api/auth/login')
+        .send(dto);
+
+    expect(response.statusCode).toBe(401);
+    const body = response.body as ErrorResponse;
+    expect(body).not.toBeNull();
+    expect(body.message.length).toBeGreaterThan(0);
+  });
+
+  test('login should return token when password is correct', async () => {
+    const passwordEncoder = new BCryptPasswordEncoder();
+    const email = 'mail@gmail.com';
+    const password = '123456';
+    const hashed = passwordEncoder.hash(password);
+    await User.create({ email, password: hashed });
+
+    const dto: LoginDTO = { email, password };
+
+    const response = await request(app).post('/api/auth/login')
+        .send(dto);
+
+    expect(response.statusCode).toBe(200);
+    const body = response.body as TokenDTO;
+    expect(body).not.toBeNull();
+    expect(body.access_token.length).toBeGreaterThan(40);
   });
 });

@@ -13,6 +13,11 @@ class AuthController {
     const tokenDTO = await this.authService.register(req.body);
     return res.status(200).json(tokenDTO);
   }
+
+  login = async (req: Request, res: Response) => {
+    const tokenDTO = await this.authService.login(req.body);
+    return res.status(200).json(tokenDTO);
+  }
 }
 
 export default AuthController;
