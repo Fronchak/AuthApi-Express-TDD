@@ -3,6 +3,7 @@ import UserRegisterDTO from "../../dtos/auth/UserRegisterDTO";
 class UserRegisterDTOBuilder {
 
   public static readonly email = "mail@gmail.com";
+  public static readonly registerEmail = "register@gmail.com";
   public static readonly password = "123456";
   public static readonly confirmPassword = "123456";
 
@@ -32,6 +33,11 @@ class UserRegisterDTOBuilder {
 
   public withAnInvalidEmail = (): UserRegisterDTOBuilder => {
     this.userRegisterDTO.email = "mail@gmail";
+    return this;
+  }
+
+  public withARegisterEmail = (): UserRegisterDTOBuilder => {
+    this.userRegisterDTO.email = UserRegisterDTOBuilder.registerEmail;
     return this;
   }
 
