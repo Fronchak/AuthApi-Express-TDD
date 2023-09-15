@@ -3,12 +3,13 @@ import TokenDTO from "../dtos/auth/TokenDTO";
 import UserRegisterDTO from "../dtos/auth/UserRegisterDTO";
 import UserEntity from "../entities/UserEntity";
 import UnauthorizedError from "../error/UnauthorizedError";
+import IAuthService from "../interfaces/IAuthService";
 import IPasswordEncoder from "../interfaces/IPasswordEncoder";
 import ITokenService from "../interfaces/ITokenService";
 import IUserRepository from "../interfaces/IUserRepository";
 
 
-class AuthService {
+class AuthService implements IAuthService {
 
   private readonly userRepository: IUserRepository;
   private readonly passwordEncoder: IPasswordEncoder;

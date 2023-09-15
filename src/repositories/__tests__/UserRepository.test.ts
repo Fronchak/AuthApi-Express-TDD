@@ -17,6 +17,7 @@ describe('UserRepository', () => {
 
   beforeAll(async() => {
     sequelize = new Sequelize({
+      logging: false,
       database: 'tests',
       dialect: 'sqlite',
       username: 'root',
