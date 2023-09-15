@@ -25,7 +25,8 @@ class AuthService {
     const user: UserEntity = {
       id: null,
       email: userRegisterDTO.email!,
-      password: hashed
+      password: hashed,
+      roles: []
     }
     const userSaved = await this.userRepository.save(user);
     const token = this.tokenService.generateToken(userSaved);

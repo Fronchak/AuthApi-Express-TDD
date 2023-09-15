@@ -12,7 +12,8 @@ class UserBuilder {
     this.user = {
       id: UserBuilder.id,
       email: UserBuilder.email,
-      password: UserBuilder.email
+      password: UserBuilder.email,
+      roles: []
     }
   }
 

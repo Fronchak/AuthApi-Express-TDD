@@ -54,7 +54,8 @@ describe('AuthServices', () => {
     expect(userRepository.save).toHaveBeenCalledWith({
       id: null,
       email: email,
-      password: hashed
+      password: hashed,
+      roles: []
     });
     expect(tokenService.generateToken).toHaveBeenCalledWith(user);
   });
