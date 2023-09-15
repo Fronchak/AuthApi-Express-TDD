@@ -6,7 +6,7 @@ import ITokenService from "../../interfaces/ITokenService";
 import IUserRepository from "../../interfaces/IUserRepository";
 import AuthService from "../AuthService";
 import LoginDTO from "../../dtos/auth/LoginDTO";
-import UnauthorizedError from "../../error/UnauthorizedError";
+import UnauthorizedError from "../../errors/UnauthorizedError";
 import UserEntity from "../../entities/UserEntity";
 
 describe('AuthServices', () => {

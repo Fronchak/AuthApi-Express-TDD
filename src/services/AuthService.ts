@@ -2,7 +2,7 @@ import LoginDTO from "../dtos/auth/LoginDTO";
 import TokenDTO from "../dtos/auth/TokenDTO";
 import UserRegisterDTO from "../dtos/auth/UserRegisterDTO";
 import UserEntity from "../entities/UserEntity";
-import UnauthorizedError from "../error/UnauthorizedError";
+import UnauthorizedError from "../errors/UnauthorizedError";
 import IAuthService from "../interfaces/IAuthService";
 import IPasswordEncoder from "../interfaces/IPasswordEncoder";
 import ITokenService from "../interfaces/ITokenService";

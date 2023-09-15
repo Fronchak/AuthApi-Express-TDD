@@ -25,6 +25,33 @@ class UserRegisterDTOBuilder {
     return this;
   }
 
+  public withABlankEmail = (): UserRegisterDTOBuilder => {
+    this.userRegisterDTO.email = "    ";
+    return this;
+  }
+
+  public withAnInvalidEmail = (): UserRegisterDTOBuilder => {
+    this.userRegisterDTO.email = "mail@gmail";
+    return this;
+  }
+
+  public withANullPassword = (): UserRegisterDTOBuilder => {
+    this.userRegisterDTO.password = null;
+    return this;
+  }
+
+  public withAShortPassword = (): UserRegisterDTOBuilder => {
+    this.userRegisterDTO.password = "12345";
+    this.userRegisterDTO.confirmPassword = "12345";
+    return this;
+  }
+
+  public withADifferentConfirmPassword = (): UserRegisterDTOBuilder => {
+    this.userRegisterDTO.password = UserRegisterDTOBuilder.password;
+    this.userRegisterDTO.confirmPassword = UserRegisterDTOBuilder.password + '.';
+    return this;
+  }
+
   public build = (): UserRegisterDTO => {
     return this.userRegisterDTO;
   }
