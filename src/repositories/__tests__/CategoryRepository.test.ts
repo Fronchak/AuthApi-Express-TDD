@@ -66,6 +66,18 @@ describe('CategoryRepository', () => {
     expect(result?.name).toBe(CategoryBuilder.primaryName);
   });
 
+  test('exists should return false when id does not exists', async() => {
+    const result = await categoryRepository.exists(CategoryBuilder.nonExistingId);
+
+    expect(result).toBeFalsy();
+  });
+
+  test('exists should return true when id exists', async() => {
+    const result = await categoryRepository.exists(CategoryBuilder.id);
+
+    expect(result).toBeTruthy();
+  })
+
   test('findAll should return entities', async () => {
     const result = await categoryRepository.findAll();
 

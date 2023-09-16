@@ -6,6 +6,8 @@ interface ICategoryRepository {
 
   findByName(name: string): Promise<CategoryEntity | null>;
 
+  exists(id: number): Promise<boolean>;
+
   findAll(): Promise<CategoryEntity[]>;
 
   save(category: CategoryEntity): Promise<CategoryEntity>;

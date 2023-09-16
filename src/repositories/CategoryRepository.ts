@@ -24,6 +24,13 @@ class CategoryRepository implements ICategoryRepository {
     });
   }
 
+  async exists(id: number): Promise<boolean> {
+    const count = await Category.count({
+      where: { id: id }
+    })
+    return count > 0;
+  }
+
   async findAll(): Promise<CategoryEntity[]> {
     const categories = await Category.findAll();
     return categories.map((c) => ({ ...c.dataValues }));
