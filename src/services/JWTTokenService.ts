@@ -11,7 +11,7 @@ class JWTTokenService implements ITokenService {
         username: user.email,
         roles: user.roles.map((r) => r.name)
       },
-      process.env.ACCESS_TOKEN_SECRET || '123',
+      process.env.ACCESS_TOKEN_SECRET || 'PtkbmVGpt5FliOrhHWAmuQR1k85mmGr2CTi2C8Yy4Zlx8dzLALaPCFx5X5pQE5B6',
       { expiresIn: '1d' }
     );
     return accessToken;
