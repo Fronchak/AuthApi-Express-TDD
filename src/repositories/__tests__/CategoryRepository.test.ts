@@ -12,7 +12,7 @@ describe('CategoryRepository', () => {
 
   beforeAll(async () => {
     sequelize = new Sequelize({
-      //logging: false,
+      logging: false,
       database: 'category_repository_tests',
       dialect: 'sqlite',
       username: 'root',
