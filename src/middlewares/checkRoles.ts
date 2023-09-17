@@ -11,7 +11,7 @@ const checkRoles = (...necessaryRoles: string[]) => {
       return next();
     }
     else {
-      return next(new ForbiddenError());
+      return next(new ForbiddenError(`You don't have permission to access this content`));
     }
   }
 }
